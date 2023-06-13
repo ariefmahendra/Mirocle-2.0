@@ -1,0 +1,338 @@
+@extends('layouts.fisioterapis.master')
+
+@section('title')
+    Dashboard - {{ $nama }}
+@endsection
+
+@section('content')
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Content Row -->
+            <div class="row w-100 justify-content-center">
+                <!-- Detak jantung -->
+                <div class="col-auto mb-4">
+                    <div class="card border-left-primary shadowy">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="font-weight-bold text-primary text-uppercase mb-1 text-xs"> Detak Jantung
+                                    </div>
+                                    <div class="h5 font-weight-bold mb-0 text-gray-800"> <span
+                                            id="detak_jantung">{{ $detak_jantung ?? '-' }}</span> BPM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Durasi -->
+                <div class="col-auto mb-4">
+                    <div class="card border-left-warning shadowy">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="font-weight-bold text-warning text-uppercase mb-1 text-xs">
+                                        Durasi</div>
+                                    <div class="h5 font-weight-bold mb-0 text-gray-800"> <span
+                                            id="jumlah_detak_jantung">{{ $durasi ?? '-' }}</span> Detik</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Saturasi Oksigen -->
+                <div class="col-auto mb-4">
+                    <div class="card border-left-info shadowy">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="font-weight-bold text-info text-uppercase mb-1 text-xs">
+                                        Saturasi Oksigen</div>
+                                    <div class="h5 font-weight-bold mb-0 text-gray-800"><span
+                                            id="saturasi_oksigen">{{ $saturasi_oksigen ?? '-' }}</span> %</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Jumlah Putaran Pedal -->
+                <div class="col-auto mb-4">
+                    <div class="card border-left-success shadowy">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="font-weight-bold text-success text-uppercase mb-1 text-xs">
+                                        Jumlah Putaran Pedal</div>
+                                    <div class="h5 font-weight-bold mb-0 text-gray-800"><span
+                                            id="putaran_pedal">{{ $putaran_pedal ?? '-' }}</span> kali</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Jumlah Kalori Terbakar -->
+                <div class="col-auto mb-4">
+                    <div class="card border-left-danger shadowy">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="font-weight-bold text-danger text-uppercase mb-1 text-xs">
+                                        Jumlah Kalori Terbakar</div>
+                                    <div class="h5 font-weight-bold mb-0 text-gray-800"><span
+                                            id="kalori">{{ $kalori ?? '- ' }}</span> KKal</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Grafik Detak Jantung -->
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card mb-4 shadow">
+                                <!-- Header Kartu - Dropdown -->
+                                <div class="card-header d-flex align-items-center justify-content-between flex-row py-3">
+                                    <h6 class="font-weight-bold text-primary m-0">Detak Jantung</h6>
+                                    <div class="dropdown no-arrow">
+                                        <!-- Tambahkan elemen dropdown jika diperlukan -->
+                                    </div>
+                                </div>
+                                <!-- Isi Kartu -->
+                                <div class="card-body d-flex justify-content-center">
+                                    <div class="chart-area">
+                                        <canvas id="detakJantung"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Grafik Saturasi Oksigen -->
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card mb-4 shadow">
+                                <!-- Header Kartu - Dropdown -->
+                                <div class="card-header d-flex align-items-center justify-content-between flex-row py-3">
+                                    <h6 class="font-weight-bold text-primary m-0">Saturasi Oksigen</h6>
+                                    <div class="dropdown no-arrow">
+                                        <!-- Tambahkan elemen dropdown jika diperlukan -->
+                                    </div>
+                                </div>
+                                <!-- Isi Kartu -->
+                                <div class="card-body d-flex justify-content-center">
+                                    <div class="chart-area">
+                                        <canvas id="saturasi"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Grafik Jumlah Putaran Pedal -->
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card mb-4 shadow">
+                                <!-- Header Kartu - Dropdown -->
+                                <div class="card-header d-flex align-items-center justify-content-between flex-row py-3">
+                                    <h6 class="font-weight-bold text-primary m-0">Jumlah Putaran Pedal</h6>
+                                    <div class="dropdown no-arrow">
+                                        <!-- Tambahkan elemen dropdown jika diperlukan -->
+                                    </div>
+                                </div>
+                                <!-- Isi Kartu -->
+                                <div class="card-body d-flex justify-content-center">
+                                    <div class="chart-area">
+                                        <canvas id="pedal"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Grafik Jumlah Kalori yang Terbakar -->
+                        <div class="col-xl-6 col-lg-6">
+                            <div class="card mb-4 shadow">
+                                <!-- Header Kartu - Dropdown -->
+                                <div class="card-header d-flex align-items-center justify-content-between flex-row py-3">
+                                    <h6 class="font-weight-bold text-primary m-0">Jumlah Kalori yang Terbakar</h6>
+                                    <div class="dropdown no-arrow">
+                                        <!-- Tambahkan elemen dropdown jika diperlukan -->
+                                    </div>
+                                </div>
+                                <!-- Isi Kartu -->
+                                <div class="card-body d-flex justify-content-center">
+                                    <div class="chart-area">
+                                        <canvas id="kaloriTerbakar"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tombol Scroll ke Atas -->
+                    <a class="scroll-to-top rounded" href="#page-top">
+                        <i class="fas fa-angle-up"></i>
+                    </a>
+                </div>
+            </div>
+@endsection
+
+
+@section('jsekstra')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        var currentUser = <?= Request::segment(3) ?>;
+        $(document).ready(function() {
+            setInterval(function() {
+                $.ajax({
+                    url: '/detakjantung/' + currentUser,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                        $("#detak_jantung").text(data.detak_jantung);
+                        $("#jumlah_detak_jantung").text(data.durasi);
+                        $("#saturasi_oksigen").text(data.saturasi_oksigen);
+                        $("#putaran_pedal").text(data.putaran_pedal);
+                        $("#kalori").text(data.kalori);
+                    },
+                });
+            }, 1000);
+        });
+
+        $(document).ready(function() {
+            setInterval(function() {
+                $.ajax({
+                    url: '/detakjantung/' + currentUser,
+                    type: 'GET',
+                    success: function(data) {
+                        console.log(data);
+                        updateChart(data);
+                    },
+                });
+            }, 1000);
+        });
+
+        function updateChart(data) {
+            var detakJantungChart = window.detakJantungChart;
+            var saturasiChart = window.saturasiChart;
+            var putaranPedalChart = window.putaranPedalChart;
+            var kaloriChart = window.kaloriChart;
+
+            if (detakJantungChart.data.labels.length >= 10) {
+                detakJantungChart.data.labels.shift();
+                detakJantungChart.data.datasets[0].data.shift();
+            }
+            if (saturasiChart.data.labels.length >= 10) {
+                saturasiChart.data.labels.shift();
+                saturasiChart.data.datasets[0].data.shift();
+            }
+            if (putaranPedalChart.data.labels.length >= 10) {
+                putaranPedalChart.data.labels.shift();
+                putaranPedalChart.data.datasets[0].data.shift();
+            }
+            if (kaloriChart.data.labels.length >= 10) {
+                kaloriChart.data.labels.shift();
+                kaloriChart.data.datasets[0].data.shift();
+            }
+
+            var timestamp = new Date(data.timestamp);
+            var jam = timestamp.getHours().toString().padStart(2, '0');
+            var menit = timestamp.getMinutes().toString().padStart(2, '0');
+            var detik = timestamp.getSeconds().toString().padStart(2, '0');
+            var jam_menit_detik = jam + ':' + menit + ':' + detik;
+
+            detakJantungChart.data.labels.push(jam_menit_detik);
+            detakJantungChart.data.datasets[0].data.push(data.detak_jantung);
+            detakJantungChart.update();
+
+            saturasiChart.data.labels.push(jam_menit_detik);
+            saturasiChart.data.datasets[0].data.push(data.saturasi_oksigen);
+            saturasiChart.update();
+
+            putaranPedalChart.data.labels.push(jam_menit_detik);
+            putaranPedalChart.data.datasets[0].data.push(data.putaran_pedal);
+            putaranPedalChart.update();
+
+            kaloriChart.data.labels.push(jam_menit_detik);
+            kaloriChart.data.datasets[0].data.push(data.kalori);
+            kaloriChart.update();
+        }
+
+        var detakJantungData = {
+            labels: [],
+            datasets: [{
+                label: 'Detak Jantung',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [],
+            }]
+        };
+        var saturasiData = {
+            labels: [],
+            datasets: [{
+                label: 'Saturasi Oksigen',
+                backgroundColor: 'rgb(255, 206, 86)',
+                borderColor: 'rgb(255, 206, 86)',
+                data: [],
+            }]
+        };
+        var putaranPedalData = {
+            labels: [],
+            datasets: [{
+                label: 'Jumlah Putaran Pedal',
+                backgroundColor: 'rgb(75, 192, 192)',
+                borderColor: 'rgb(75, 192, 192)',
+                data: [],
+            }]
+        };
+        var kaloriData = {
+            labels: [],
+            datasets: [{
+                label: 'Jumlah Kalori yang Terbakar',
+                backgroundColor: 'rgb(153, 102, 255)',
+                borderColor: 'rgb(153, 102, 255)',
+                data: [],
+            }]
+        };
+        var configDetakJantung = {
+            type: 'line',
+            data: detakJantungData,
+            options: {}
+        };
+        var configSaturasi = {
+            type: 'line',
+            data: saturasiData,
+            options: {}
+        };
+        var configPutaranPedal = {
+            type: 'line',
+            data: putaranPedalData,
+            options: {}
+        };
+        var configKalori = {
+            type: 'line',
+            data: kaloriData,
+            options: {}
+        };
+        var detakJantungChart = new Chart(
+            document.getElementById('detakJantung'),
+            configDetakJantung
+        );
+        var saturasiChart = new Chart(
+            document.getElementById('saturasi'),
+            configSaturasi
+        );
+        var putaranPedalChart = new Chart(
+            document.getElementById('pedal'),
+            configPutaranPedal
+        );
+        var kaloriChart = new Chart(
+            document.getElementById('kaloriTerbakar'),
+            configKalori
+        );
+    </script>
+@endsection
