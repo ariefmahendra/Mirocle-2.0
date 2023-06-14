@@ -1,7 +1,7 @@
 @extends('layouts.pasien.master')
 
 @section('title')
-    Grafik Pasien
+    Grafik Realtime Pasien
 @endsection
 
 @section('content')
@@ -113,20 +113,20 @@
             var saturasiChart = window.saturasiChart;
             var putaranPedalChart = window.putaranPedalChart;
             var kaloriChart = window.kaloriChart;
-            // Menghapus data yang melebihi batas 10
-            if (detakJantungChart.data.labels.length >= 10) {
+            // Menghapus data yang melebihi batas 5
+            if (detakJantungChart.data.labels.length >= 5) {
                 detakJantungChart.data.labels.shift();
                 detakJantungChart.data.datasets[0].data.shift();
             }
-            if (saturasiChart.data.labels.length >= 10) {
+            if (saturasiChart.data.labels.length >= 5) {
                 saturasiChart.data.labels.shift();
                 saturasiChart.data.datasets[0].data.shift();
             }
-            if (putaranPedalChart.data.labels.length >= 10) {
+            if (putaranPedalChart.data.labels.length >= 5) {
                 putaranPedalChart.data.labels.shift();
                 putaranPedalChart.data.datasets[0].data.shift();
             }
-            if (kaloriChart.data.labels.length >= 10) {
+            if (kaloriChart.data.labels.length >= 5) {
                 kaloriChart.data.labels.shift();
                 kaloriChart.data.datasets[0].data.shift();
             }

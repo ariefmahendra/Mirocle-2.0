@@ -71,7 +71,12 @@ class PasienController extends Controller
     {
         return view('layouts.pasien.grafik');
     }
-    
+
+    public function otot()
+    {
+        return view('layouts.pasien.otot');
+    }
+
     public function riwayat(Request $request)
     {
         $userId = auth()->user()->id; // Ambil ID pengguna yang sedang login

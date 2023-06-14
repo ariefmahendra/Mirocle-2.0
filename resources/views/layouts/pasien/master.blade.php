@@ -28,7 +28,7 @@
         <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('pasien.index') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-thin fa-brain"></i>
                 </div>
@@ -44,11 +44,18 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
 
-                <!-- Nav Item - Dashboard -->
+            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href=" {{ route('pasien.grafik') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Grafik</span></a>
+                    <span>Grafik Realtime</span></a>
+            </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href=" {{ route('pasien.otot') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Grafik Otot</span></a>
             </li>
 
             <!-- Nav Item - Dashboard -->
