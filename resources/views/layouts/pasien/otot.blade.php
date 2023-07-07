@@ -101,7 +101,7 @@
                                         data: otot1,
                                         backgroundColor: 'rgba(0, 123, 255, 0.5)',
                                         borderColor: 'rgba(0, 123, 255, 1)',
-                                        borderWidth: 1,
+                                        borderWidth: 3,
                                         fill: false,
                                     }]
                                 },
@@ -128,9 +128,10 @@
                                     datasets: [{
                                         label: 'Amplitudo Akhir',
                                         data: otot2,
-                                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                                        borderColor: 'rgba(0, 123, 255, 1)',
-                                        borderWidth: 1
+                                        backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                                        borderColor: 'rgba(255, 0, 0, 1)',
+                                        borderWidth: 3,
+                                        fill: false,
                                     }]
                                 },
                                 options: {
