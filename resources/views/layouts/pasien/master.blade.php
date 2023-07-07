@@ -28,7 +28,8 @@
         <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('pasien.index') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('pasien.index') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-thin fa-brain"></i>
                 </div>
@@ -44,7 +45,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
 
-            <!-- Nav Item - Dashboard -->
+                <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href=" {{ route('pasien.grafik') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -117,7 +118,8 @@
                         <div class="d-sm-flex align-items-center justify-content-between my-4">
                             <h1 class="h3 mt-3 text-gray-800">@yield('title')</h1>
                         </div>
-                        <a href="{{route ('exportexcel')}}" class="d-none d-sm-inline-block btn btn-sm btn-info mt-3 shadow-sm"><i
+                        <a href="{{ route('exportexcel') }}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-info mt-3 shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report Data Final</a>
                     </div>
                 </nav>
@@ -133,11 +135,10 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" 
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
     <script src="{{ asset('js/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -150,10 +151,6 @@
     <!-- Page level plugins -->
     <script src="{{ asset('js/vendor/chart.js/Chart.min.js') }}"></script>
 
-    @yield('jsekstra')
-
-    @livewireStyles
-    @stack('js')
 </body>
 
 </html>

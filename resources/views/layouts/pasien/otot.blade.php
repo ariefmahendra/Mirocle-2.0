@@ -56,7 +56,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script>
+        <script type="text/javascript">
+            var currentUser = {
+                id: <?= Auth::guard()->user()->id ?>
+            };
+
+            // console.log("current id", currentUser.id)
+
             $(document).ready(function() {
                 var otot1 = [];
                 var otot2 = [];
@@ -65,7 +71,7 @@
 
                 function fetchData() {
                     $.ajax({
-                        url: '/otot/2',
+                        url: '/otot/' + currentUser.id,
                         dataType: 'json',
                         success: function(data) {
                             if (JSON.stringify(data) === JSON.stringify(lastData)) {
