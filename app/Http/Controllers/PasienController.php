@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\SensorDataFinal;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Response;
+use App\Models\Msensor;
 
 
 class PasienController extends Controller
@@ -25,7 +26,7 @@ class PasienController extends Controller
 
         // Periksa profil pengguna
         $user = User::query()->where('id', $userId)->first();
-    
+
         $profile = Profile::query()->where('user_id', '=', Auth::user()->id)->first();
 
         $sensorData = SensorDataFinal::whereHas('user', function ($query) use ($userId) {
@@ -66,15 +67,10 @@ class PasienController extends Controller
     {
         return view('layouts.pasien.biodata');
     }
-    
+
     public function grafik()
     {
         return view('layouts.pasien.grafik');
-    }
-
-    public function otot()
-    {
-        return view('layouts.pasien.otot');
     }
 
     public function riwayat(Request $request)
@@ -93,7 +89,6 @@ class PasienController extends Controller
     }
     public function detakJantung()
     {
-        // Logika untuk mendapatkan data detak jantung dari database atau sumber data lainnya
         $data = [
             'timestamp' => now(),
             'detak_jantung' => rand(60, 100), // Contoh data detak jantung acak
@@ -118,11 +113,16 @@ class PasienController extends Controller
         $detakJantung = session('detakjantung');
         return view('/layouts/pasien/dashboard', compact('detakJantung'));
     }
-    
+
     public function exportexcel()
     {
         $userId = auth()->user()->id; // Ambil ID pengguna yang sedang login
         $fileName = 'data_final.xlsx';
         return Excel::download(new DataFinal($userId), $fileName);
-    }   
+    }
+
+    public function otot()
+    {
+        return view('layouts.pasien.otot');
+    }
 }

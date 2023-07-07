@@ -24,7 +24,7 @@
                         <!-- Isi Kartu -->
                         <div class="card-body d-flex justify-content-center">
                             <div class="chart-area">
-                                <canvas id="detakJantung"></canvas>
+                                <canvas id="otot1"></canvas>
                             </div>
                         </div>
                     </div>
@@ -42,16 +42,117 @@
                         <!-- Isi Kartu -->
                         <div class="card-body d-flex justify-content-center">
                             <div class="chart-area">
-                                <canvas id="saturasi"></canvas>
+                                <canvas id="otot2"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
-          
-            <!-- Tombol Scroll ke Atas -->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+            </div>
         </div>
-    </div>
-@endsection
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                var otot1 = []; // Array untuk menyimpan data grafik
+                var otot2 = []; // Array untuk menyimpan data grafik
+                var labels = []; // Array untuk menyimpan label waktu
+                var lastData = null; // Variabel untuk menyimpan data terakhir
+
+                function fetchData() {
+                    $.ajax({
+                        url: '/otot/2',
+                        dataType: 'json',
+                        success: function(data) {
+                            // Membandingkan data baru dengan data terakhir
+                            if (JSON.stringify(data) === JSON.stringify(lastData)) {
+                                return;
+                            }
+
+                            // Menghapus data grafik yang ada sebelumnya
+                            chartData = [];
+                            labels = [];
+
+                            // Loop melalui setiap objek dalam data JSON
+                            for (var i = 0; i < data.length; i++) {
+                                var item = data[i];
+                                otot1.push(item.amplitudo_awal);
+                                otot2.push(item.amplitudo_akhir);
+                                var timestamp = item.timestamp;
+                                var formattedTimestamp = timestamp.substr(11, 8);
+                                labels.push(formattedTimestamp);
+                            }
+
+                            // Memperbarui data terakhir dengan data baru
+                            lastData = data;
+
+                            // Memperbarui grafik menggunakan data yang baru
+                            var ctx = document.getElementById('otot1').getContext('2d');
+                            var chart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Amplitudo Awal',
+                                        data: otot1,
+                                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                                        borderColor: 'rgba(0, 123, 255, 1)',
+                                        borderWidth: 1,
+                                        fill: false,
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    scales: {
+                                        x: {
+                                            type: 'time',
+                                            time: {
+                                                displayFormats: {
+                                                    hour: 'HH:mm:ss'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+
+                            var ctx = document.getElementById('otot2').getContext('2d');
+                            var chart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Amplitudo Akhir',
+                                        data: otot2,
+                                        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                                        borderColor: 'rgba(0, 123, 255, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    scales: {
+                                        x: {
+                                            type: 'time',
+                                            time: {
+                                                displayFormats: {
+                                                    hour: 'HH:mm:ss'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+                // Mengambil dan memperbarui data grafik setiap 1 detik
+                setInterval(fetchData, 1000);
+            });
+        </script>
+    @endsection

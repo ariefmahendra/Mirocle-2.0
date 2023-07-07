@@ -98,7 +98,7 @@
         $(document).ready(function() {
             setInterval(function() {
                 $.ajax({
-                    url: '/detakjantung/2', // URL untuk meminta data
+                    url: '/detakjantung/{id}', // URL untuk meminta data
                     type: 'GET', // Metode HTTP
                     success: function(data) {
                         console.log(data);

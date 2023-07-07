@@ -13,17 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sensor_data_final', function (Blueprint $table) {
+        Schema::create('EMG', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('id_terapi');
-            $table->text('waktu_mulai')->nullable();
-            $table->text('waktu_selesai')->nullable();
-            $table->text('rata_rata_detak_jantung')->nullable();
-            $table->text('rata_rata_saturasi_oksigen')->nullable();
-            $table->text('kalori_total')->nullable();
-            $table->text('putaran_pedal');
-            $table->text('durasi')->nullable();
+            $table->text('amplitudo_awal')->nullable();
+            $table->text('amplitudo_akhir')->nullable();
             $table->timestamp('timestamp')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

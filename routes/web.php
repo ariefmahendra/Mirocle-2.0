@@ -39,3 +39,4 @@ Route::get('/', function () {
 })->middleware('guest');
 
 Route::get('/detakjantung/{id}', [SensorLaravel::class, 'detakjantung'])->name('detakjantung');
+Route::get('/otot/{id}', [SensorLaravel::class, 'otot'])->name('otot');
