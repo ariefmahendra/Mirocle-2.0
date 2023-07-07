@@ -58,26 +58,20 @@
 
         <script>
             $(document).ready(function() {
-                var otot1 = []; // Array untuk menyimpan data grafik
-                var otot2 = []; // Array untuk menyimpan data grafik
-                var labels = []; // Array untuk menyimpan label waktu
-                var lastData = null; // Variabel untuk menyimpan data terakhir
+                var otot1 = [];
+                var otot2 = [];
+                var labels = [];
+                var lastData = null;
 
                 function fetchData() {
                     $.ajax({
                         url: '/otot/2',
                         dataType: 'json',
                         success: function(data) {
-                            // Membandingkan data baru dengan data terakhir
                             if (JSON.stringify(data) === JSON.stringify(lastData)) {
                                 return;
                             }
 
-                            // Menghapus data grafik yang ada sebelumnya
-                            chartData = [];
-                            labels = [];
-
-                            // Loop melalui setiap objek dalam data JSON
                             for (var i = 0; i < data.length; i++) {
                                 var item = data[i];
                                 otot1.push(item.amplitudo_awal);
@@ -87,10 +81,8 @@
                                 labels.push(formattedTimestamp);
                             }
 
-                            // Memperbarui data terakhir dengan data baru
                             lastData = data;
 
-                            // Memperbarui grafik menggunakan data yang baru
                             var ctx = document.getElementById('otot1').getContext('2d');
                             var chart = new Chart(ctx, {
                                 type: 'line',
@@ -151,8 +143,6 @@
                         }
                     });
                 }
-
-                // Mengambil dan memperbarui data grafik setiap 1 detik
                 setInterval(fetchData, 1000);
             });
         </script>

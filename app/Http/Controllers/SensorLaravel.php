@@ -9,11 +9,9 @@ class SensorLaravel extends Controller
 {
     public function detakjantung($id)
     {
-        $sensor = Msensor::whereHas('user', function ($query) use ($id) {
-            $query->where('id', $id);
-        })->latest('id')->first();
-
-        return response()->json($sensor);
+        $data = Msensor::orderBy('id', 'desc')->take(5)->get();
+        // dd($data);
+        return response()->json($data);
     }
     public function otot($id)
     {
