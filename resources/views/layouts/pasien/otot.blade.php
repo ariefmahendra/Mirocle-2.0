@@ -23,9 +23,7 @@
                         </div>
                         <!-- Isi Kartu -->
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="otot1"></canvas>
-                            </div>
+                            <canvas id="otot1"></canvas>
                         </div>
                     </div>
                 </div>
@@ -41,9 +39,7 @@
                         </div>
                         <!-- Isi Kartu -->
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="otot2"></canvas>
-                            </div>
+                            <canvas id="otot2"></canvas>
                         </div>
                     </div>
                 </div>
@@ -77,6 +73,12 @@
                             if (JSON.stringify(data) === JSON.stringify(lastData)) {
                                 return;
                             }
+
+                            otot1 = [];
+                            otot2 = [];
+                            labels = [];
+
+                            console.log(data);
 
                             for (var i = 0; i < data.length; i++) {
                                 var item = data[i];

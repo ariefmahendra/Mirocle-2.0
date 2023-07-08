@@ -14,9 +14,7 @@
                             <h6 class="font-weight-bold text-primary m-0">Detak Jantung</h6>
                         </div>
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="detakJantung"></canvas>
-                            </div>
+                            <canvas id="detakJantung"></canvas>
                         </div>
                     </div>
                 </div>
@@ -26,9 +24,7 @@
                             <h6 class="font-weight-bold text-primary m-0">Saturasi Oksigen</h6>
                         </div>
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="saturasiOksigen"></canvas>
-                            </div>
+                            <canvas id="saturasiOksigen"></canvas>
                         </div>
                     </div>
                 </div>
@@ -38,9 +34,7 @@
                             <h6 class="font-weight-bold text-primary m-0">Jumlah Putaran Pedal</h6>
                         </div>
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="jumlahPutaranPedal"></canvas>
-                            </div>
+                            <canvas id="jumlahPutaranPedal"></canvas>
                         </div>
                     </div>
                 </div>
@@ -50,9 +44,7 @@
                             <h6 class="font-weight-bold text-primary m-0">Jumlah Kalori yang Terbakar</h6>
                         </div>
                         <div class="card-body d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas id="kalori"></canvas>
-                            </div>
+                            <canvas id="kalori"></canvas>
                         </div>
                     </div>
                 </div>
@@ -89,6 +81,12 @@
                         if (JSON.stringify(data) === JSON.stringify(lastData)) {
                             return;
                         }
+
+                        detakJantung = [];
+                        saturasiOksigen = [];
+                        jumlahPutaranPedal = [];
+                        kalori = [];
+                        labels = [];
 
                         // Loop melalui setiap objek dalam data JSON
                         for (var i = 0; i < data.length; i++) {

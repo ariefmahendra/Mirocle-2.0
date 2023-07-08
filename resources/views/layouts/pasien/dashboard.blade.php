@@ -96,18 +96,14 @@
             <div class="row">
                 {{-- DAERAH GRAFIK TOTAL TERAPI --}}
                 <div class="col-xl-8 col-lg-7">
-                    <div class="card mb-4 shadow">
+                    <div class="card mb-5 shadow">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header d-flex align-items-center justify-content-between flex-row py-3">
                             <h6 class="font-weight-bold text-primary m-0">Total Terapi dalam setiap bulan</h6>
-                            <div class="dropdown no-arrow">
-                            </div>
                         </div>
                         <!-- Card Body -->
                         <div class="card-body">
-                            <div class="chart-area">
-                                <canvas id="total-terapi"></canvas>
-                            </div>
+                            <canvas id="total-terapi"></canvas>
                         </div>
                     </div>
                 </div>
@@ -181,8 +177,7 @@
             <i class="fas fa-angle-up"></i>
         </a>
     </div>
-@endsection
-@section('jsekstra')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript">
