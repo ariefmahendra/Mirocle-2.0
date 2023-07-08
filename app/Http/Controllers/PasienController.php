@@ -7,53 +7,36 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
 use App\Exports\DataFinal;
-use App\Exports\DataFinalPasien;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\SensorData;
 use App\Models\User;
 use App\Models\SensorDataFinal;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Response;
-use App\Models\Msensor;
-
 
 class PasienController extends Controller
 {
     public function index()
     {
-        // Ambil ID pengguna yang sedang login
         $userId = auth()->user()->id;
-
-        // Periksa profil pengguna
         $user = User::query()->where('id', $userId)->first();
-
         $profile = Profile::query()->where('user_id', '=', Auth::user()->id)->first();
-
         $sensorData = SensorDataFinal::whereHas('user', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
             ->orderBy('id', 'desc')
             ->take(5)
             ->get();
-        // Inisialisasi array untuk label dan jumlah terapi
         $labels = [];
         $totalTerapi = [];
-        // Loop melalui setiap data sensor
         foreach ($sensorData as $data) {
-            // Ambil timestamp
             $timestamp = $data->timestamp;
-            // Ambil bulan dari timestamp
             $bulan = date('Y-m', strtotime($timestamp));
-            // Jika bulan belum ada dalam array labels, tambahkan ke array labels
             if (!in_array($bulan, $labels)) {
                 $labels[] = $bulan;
             }
-            // Hitung jumlah terapi berdasarkan bulan
             $jumlahTerapi = SensorDataFinal::where('user_id', $userId)
                 ->whereMonth('timestamp', date('m', strtotime($timestamp)))
                 ->whereYear('timestamp', date('Y', strtotime($timestamp)))
                 ->count();
-            // Tambahkan jumlah terapi ke array totalTerapi
             $totalTerapi[] = $jumlahTerapi;
         }
         return view('layouts.pasien.dashboard', [
@@ -75,7 +58,7 @@ class PasienController extends Controller
 
     public function riwayat(Request $request)
     {
-        $userId = auth()->user()->id; // Ambil ID pengguna yang sedang login
+        $userId = auth()->user()->id;
         $tanggal = $request->input('tanggal');
         $query = SensorDataFinal::whereHas('user', function ($query) use ($userId) {
             $query->where('user_id', $userId);
@@ -91,7 +74,7 @@ class PasienController extends Controller
     {
         $data = [
             'timestamp' => now(),
-            'detak_jantung' => rand(60, 100), // Contoh data detak jantung acak
+            'detak_jantung' => rand(60, 100),
         ];
         return response()->json($data);
     }
@@ -116,7 +99,7 @@ class PasienController extends Controller
 
     public function exportexcel()
     {
-        $userId = auth()->user()->id; // Ambil ID pengguna yang sedang login
+        $userId = auth()->user()->id;
         $fileName = 'data_final.xlsx';
         return Excel::download(new DataFinal($userId), $fileName);
     }

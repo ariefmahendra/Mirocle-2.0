@@ -6,13 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\SensorDataFinal;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Profile;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Auth;
-use function PHPUnit\Framework\throwException;
 use App\Exports\DataFinalPasien;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -27,37 +22,28 @@ class FisioTerapisController extends Controller
         $sensorData = SensorDataFinal::orderBy('timestamp', 'desc')
             ->take(5)
             ->get();
-        // Inisialisasi array untuk label dan jumlah pasien terapi
         $labels = [];
         $totalPasienTerapi = [];
-        // Loop melalui setiap data sensor
         foreach ($sensorData as $data) {
-            // Ambil timestamp
             $timestamp = $data->timestamp;
-            // Ambil bulan dari timestamp
             $bulan = date('Y-m', strtotime($timestamp));
-            // Jika bulan belum ada dalam array labels, tambahkan ke array labels
             if (!in_array($bulan, $labels)) {
                 $labels[] = $bulan;
             }
-            // Hitung jumlah pasien terapi berdasarkan bulan dan user ID
             $jumlahPasienTerapi = SensorDataFinal::where('user_id', $data->user_id)
                 ->whereMonth('timestamp', date('m', strtotime($timestamp)))
                 ->whereYear('timestamp', date('Y', strtotime($timestamp)))
-                ->distinct('user_id') // Memastikan hanya menghitung user ID yang berbeda
+                ->distinct('user_id')
                 ->count('user_id');
-            // Tambahkan jumlah pasien terapi ke array totalPasienTerapi
             $totalPasienTerapi[] = $jumlahPasienTerapi;
         }
         return view('layouts.fisioterapis.dashboard', compact('users', 'jumlahLakiLaki', 'jumlahPerempuan', 'labels', 'totalPasienTerapi'));
     }
-    // akan dilakukan pagination
     public function data()
     {
         $users = User::with('profile')->where('role', '!=', 1)->simplePaginate(5);
         return view('layouts.fisioterapis.data', compact('users'));
     }
-    // akan dilakukan pagination
     public function input()
     {
         $users = User::where('role', '!=', 1)->simplepaginate(5);
@@ -85,7 +71,6 @@ class FisioTerapisController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'Data pengguna berhasil dihapus.');
     }
-    // akan dilakukan pagination
     public function riwayat()
     {
         $query = SensorDatafinal::orderBy('id', 'desc');
@@ -116,12 +101,12 @@ class FisioTerapisController extends Controller
 
     public function monitoring($id)
     {
-    $user = User::find($id);
-    $nama = $user->name; // Ganti 'nama' dengan kolom nama yang sesuai di tabel users
+        $user = User::find($id);
+        $nama = $user->name;
 
-    return view('layouts.fisioterapis.monitoring', compact('nama'));
+        return view('layouts.fisioterapis.monitoring', compact('nama'));
     }
-    
+
     public function exportExcelPasien($id)
     {
         $userId = $id;
