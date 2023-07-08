@@ -77,7 +77,6 @@
                     url: '/detakjantung/' + currentUser.id,
                     dataType: 'json',
                     success: function(data) {
-                        // Membandingkan data baru dengan data terakhir
                         if (JSON.stringify(data) === JSON.stringify(lastData)) {
                             return;
                         }
@@ -88,7 +87,6 @@
                         kalori = [];
                         labels = [];
 
-                        // Loop melalui setiap objek dalam data JSON
                         for (var i = 0; i < data.length; i++) {
                             var item = data[i];
                             detakJantung.push(item.detak_jantung);
@@ -100,10 +98,8 @@
                             labels.push(formattedTimestamp);
                         }
 
-                        // Memperbarui data terakhir dengan data baru
                         lastData = data;
 
-                        // Memperbarui grafik menggunakan data yang baru
                         var ctx = document.getElementById('detakJantung').getContext('2d');
                         var chart = new Chart(ctx, {
                             type: 'line',
@@ -133,7 +129,6 @@
                             }
                         });
 
-                        // Memperbarui grafik menggunakan data yang baru
                         var ctx = document.getElementById('saturasiOksigen').getContext('2d');
                         var chart = new Chart(ctx, {
                             type: 'line',
@@ -163,7 +158,6 @@
                             }
                         });
 
-                        // Memperbarui grafik menggunakan data yang baru
                         var ctx = document.getElementById('jumlahPutaranPedal').getContext('2d');
                         var chart = new Chart(ctx, {
                             type: 'line',
@@ -193,7 +187,6 @@
                             }
                         });
 
-                        // Memperbarui grafik menggunakan data yang baru
                         var ctx = document.getElementById('kalori').getContext('2d');
                         var chart = new Chart(ctx, {
                             type: 'line',
@@ -225,7 +218,6 @@
                     }
                 })
             }
-            // Mengambil dan memperbarui data grafik setiap 1 detik
             setInterval(updatechart, 1000);
         });
     </script>
