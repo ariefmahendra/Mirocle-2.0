@@ -17,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
+
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -110,11 +111,10 @@
                         <ul class="navbar-nav ml-auto">
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span
-                                        class="d-none d-lg-inline small mr-2 text-gray-600">{{ auth()->user()->name }}</span>
-                                </a>
+                                <div class="nav-link dropdown-toggle">
+                                    <span class="d-none d-lg-inline small mr-2 text-lg text-gray-600">
+                                        {{ auth()->user()->name }}</span>
+                                </div>
                             </li>
                         </ul>
                     </div>

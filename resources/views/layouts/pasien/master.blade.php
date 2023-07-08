@@ -119,7 +119,7 @@
                             <h1 class="h3 mt-3 text-gray-800">@yield('title')</h1>
                         </div>
                         <a href="{{ route('exportexcel') }}"
-                            class="d-none d-sm-inline-block btn btn-sm btn-info mt-3 shadow-sm"><i
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary mt-3 shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report Data Final</a>
                     </div>
                 </nav>

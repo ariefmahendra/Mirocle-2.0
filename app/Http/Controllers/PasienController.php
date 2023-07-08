@@ -88,7 +88,7 @@ class PasienController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'riwayat_penyakit' => $request->riwayat_penyakit,
         ]);
-        return redirect('/pasien');
+        return redirect('/pasien/data')->with('Success', 'Data berhasil Diupdate');
     }
     public function dashboard()
     {
